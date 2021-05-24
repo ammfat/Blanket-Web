@@ -1,8 +1,12 @@
-# How to Use
+# Blanket Web
+
+This project inspired by [blanket](https://github.com/rafaelmardojai/blanket/)
 
 ---
 
-## First Run
+## How to Use
+
+### First Run
 
 1. Create database by running `CREATE DATABASE db_blanket_web`
 2. Create tables by running the following queries.
@@ -59,6 +63,6 @@
 
 ---
 
-## Non-First Run
+### Non-First Run
 
 Simply **skip the 1st, 2nd, and 7th step** on First Run section.
