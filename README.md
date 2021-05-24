@@ -9,7 +9,8 @@ This project inspired by [blanket](https://github.com/rafaelmardojai/blanket/)
 ### First Run
 
 1. Create database by running `CREATE DATABASE db_blanket_web`
-2. Create tables by running the following queries.
+2. Switch to the database with `USE db_blanket_web`
+3. Create tables by running the following queries.
 
     ```
     CREATE TABLE `categories` (
@@ -46,23 +47,23 @@ This project inspired by [blanket](https://github.com/rafaelmardojai/blanket/)
     ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
     ```
 
-3. Install all requirements by running `pip install -r requirements.txt`
+4. Install all requirements by running `pip install -r requirements.txt`
 
-4. Activate the virtual environment. Depends on your OS and terminal, if you using GNU/Linux and FISH, simply run `source env/bin/activate.fish`
+5. Activate the virtual environment. Depends on your OS and terminal, if you using GNU/Linux and FISH, simply run `source env/bin/activate.fish`
 
-5. Run the application by using this following commands
+6. Run the application by using this following commands
 
     ```
     set FLASK_APP run.py
     flask run
     ```
 
-6. It should be make a connection in `127.0.0.1:5000`. Open the URL on your browser.
+7. It should be make a connection in `127.0.0.1:5000`. Open the URL on your browser.
 
-7. Click the "Reset to Default" Navbar to setup the application sounds data.
+8. Click the "Reset to Default" Navbar to setup the application sounds data.
 
 ---
 
 ### Non-First Run
 
-Simply **skip the 1st, 2nd, and 7th step** on First Run section.
+Follow only the 5th and 6th step on First Run section
