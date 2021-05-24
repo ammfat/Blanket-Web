@@ -68,4 +68,9 @@ This project inspired by [blanket](https://github.com/rafaelmardojai/blanket/).
 
 1. Activate the virtual environment. It depends on your OS and shell emulator, please refer to [this page](https://flask.palletsprojects.com/en/2.0.x/cli/) for better information.
 
-2. Run the application by using `flask run`.
+2. Run the application by using this following commands:
+
+    ```
+    set FLASK_APP run.py
+    flask run
+    ```
