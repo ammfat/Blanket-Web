@@ -1,6 +1,6 @@
 # Blanket Web
 
-This project inspired by [blanket](https://github.com/rafaelmardojai/blanket/)
+This project inspired by [blanket](https://github.com/rafaelmardojai/blanket/).
 
 ---
 
@@ -8,9 +8,9 @@ This project inspired by [blanket](https://github.com/rafaelmardojai/blanket/)
 
 ### First Run
 
-1. Create database by running `CREATE DATABASE db_blanket_web`
-2. Switch to the database with `USE db_blanket_web`
-3. Create tables by running the following queries.
+1. Create database by running `CREATE DATABASE db_blanket_web;`.
+2. Switch to the database with `USE db_blanket_web;`.
+3. Create tables by running the following queries:
 
     ```
     CREATE TABLE `categories` (
@@ -47,11 +47,11 @@ This project inspired by [blanket](https://github.com/rafaelmardojai/blanket/)
     ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
     ```
 
-4. Install all requirements by running `pip install -r requirements.txt`
+4. Install all requirements by running `pip install -r requirements.txt`.
 
-5. Activate the virtual environment. Depends on your OS and terminal, if you using GNU/Linux and FISH, simply run `source env/bin/activate.fish`
+5. Activate the virtual environment. It depends on your OS and shell emulator, please refer to [this page](https://flask.palletsprojects.com/en/2.0.x/cli/) for better information.
 
-6. Run the application by using this following commands
+6. Run the application by using this following commands:
 
     ```
     set FLASK_APP run.py
@@ -66,4 +66,6 @@ This project inspired by [blanket](https://github.com/rafaelmardojai/blanket/)
 
 ### Non-First Run
 
-Follow only the 5th and 6th step on First Run section
+1. Activate the virtual environment. It depends on your OS and shell emulator, please refer to [this page](https://flask.palletsprojects.com/en/2.0.x/cli/) for better information.
+
+2. Run the application by using `flask run`.
