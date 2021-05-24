@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+
+<!-- Title -->
+{% block title %}Blanket Web | Ammfat{% endblock %}
+
+<!-- Nav Add Sound -->
+{% block navFeatures %}
+<a type="button" data-bs-toggle="modal" data-bs-target="#addSoundModal" class="nav-link">Add Sound</a>
+<a type="button" data-bs-toggle="modal" data-bs-target="#addCategoryModal" class="nav-link">Add Category</a>
+<a type="button" data-bs-toggle="modal" data-bs-target="#viewLicencesModal" class="nav-link">View Licences</a>
+<a type="button" href="/default-db" class="nav-link" onclick="return confirm('Are you sure?')">Reset to Default</a>
+{% endblock %}
+
+<!-- Sounds -->
+{% block sounds %}
+
+<!-- Operation Success Alert -->
+{% if operation_success %}
+<div class="alert alert-dark mt-2 mb-2 alert-dismissible fade show" role="alert">
+    <strong>{{ alert_messages }}!</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<section id="top"></section>
+
+<section id="table-of-categories">
+    <p>Table of Categories</p>
+    <div class="list-group">
+        {% for cat_name in sound_dict.keys() %}
+        <a href="#{{ cat_name }}" class="list-group-item list-group-item-action">{{ cat_name }}</a>
+        {% endfor %}
+    </div>
+</section>
+
+<section id="sounds">
+    <div class="container">
+        <!-- <p>{{ sound_dict }}</p> -->
+
+        {% for cat in sound_dict %}
+
+        <div class="category">
+            <h3 id="{{ cat }}"><strong>{{ cat }}</strong></h3>
+            <table>
+                <tbody>
+                    {% for data in sound_dict[cat] %}
+                    <tr>
+                        <td style="width: 300px">
+                            <h5 style="display: inline-block">{{ data[2] }}</h5>
+                        </td>
+                        <td style="width: 350px">
+                            <audio src="{{ url_for('static', filename='users/audio/') }}{{ data[3] }}" controls loop></audio>
+                        </td>
+                        <td>
+                            <a type="button" class="btn btn-warning btn-sm ms-1 me-1" data-bs-toggle="modal" data-bs-target="#updateSoundModal{{ data[1] }}"><i class="bi bi-pencil-square fs-5"></i></a>
+
+                            <a href="/delete/{{ data[1] }}" type="button" class="btn btn-warning btn-sm ms-1 me-1" onclick="return confirm('Are you sure?')"><i class="bi bi-trash fs-5"></i></a>
+                        </td>
+                    </tr>
+                    <!-- Update Sound Modal -->
+
+                    <div class="modal fade" id="updateSoundModal{{ data[1] }}" tabindex="-1" aria-labelledby="updateSoundModal{{ data[1] }}Label" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content text-dark">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="updateSoundModal{{ data[1] }}Label">Update {{ data[2] }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="text-center"><em>Don't forget to choose the audio file ^^/</em></p>
+
+                                    <form action="{{ url_for('update') }}" method="POST" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <input type="hidden" name="id" value="{{ data[1] }}" />
+                                            <label>Category:</label> <br />
+                                            <select name="category" id="category" class="form-select" aria-label=".form-select-lg example">
+                                                {% for cat_name in categories.keys() %}
+                                                <!--  -->
+                                                {% if cat_name == 'Custom' %}
+                                                <option value="{{ cat_name }}" selected>{{ cat_name }}</option>
+                                                {% else %}
+                                                <option value="{{ cat_name }}">{{ cat_name }}</option>
+                                                {% endif %}
+                                                <!--  -->
+                                                {% endfor %}
+                                            </select>
+
+                                            <label class="mt-2">Title</label>
+                                            <input type="text" class="form-control" name="title" value="{{ data[2] }}" />
+
+                                            <label class="mt-2">Choose File</label> <br />
+                                            <input type="file" class="form-control" name="file" />
+
+                                            <label class="mt-2">Author</label> <br />
+                                            <input type="text" class="form-control" name="author" value="{{ data[4] }}" />
+
+                                            <label class="mt-2">License</label> <br />
+                                            <input type="text" class="form-control" name="license" value="{{ data[5] }}" />
+                                        </div>
+
+                                        <div class="form-group modal-footer mt-3">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button class="btn btn-primary" type="submit">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- End Update Sound Modal -->
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Add Sound Modal -->
+
+<div class="modal fade text-dark" id="addSoundModal" tabindex="-1" aria-labelledby="addSoundModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addSoundModalLabel">Add Sound</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Category:</label> <br />
+                        <select name="category" id="category" class="form-select" aria-label=".form-select-lg example">
+                            {% for cat_name in categories.keys() %}
+                            <!--  -->
+                            {% if cat_name == 'Custom' %}
+                            <option value="{{ cat_name }}" selected>{{ cat_name }}</option>
+                            {% else %}
+                            <option value="{{ cat_name }}">{{ cat_name }}</option>
+                            {% endif %}
+                            <!--  -->
+                            {% endfor %}
+                        </select>
+
+                        <label class="mt-2">Title:</label>
+                        <input type="text" class="form-control" name="title" required />
+
+                        <label class="mt-2">Choose File</label> <br />
+                        <input type="file" class="form-control" name="file" required />
+
+                        <label class="mt-2">Author</label> <br />
+                        <input type="text" class="form-control" name="author" />
+
+                        <label class="mt-2">License</label> <br />
+                        <input type="text" class="form-control" name="license" />
+                    </div>
+
+                    <div class="form-group modal-footer mt-3">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="submit">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- END Add Sound Modal -->
+
+<!-- Add Category Modal -->
+
+<div class="modal fade text-dark" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action=" {{ url_for('add_category') }}" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Existing Category</label> <br />
+                        <select name="category" id="category" class="form-select" aria-label=".form-select-lg example">
+                            {% for cat_name in categories.keys() %}
+                            <!--  -->
+                            {% if cat_name == 'Nature' %}
+                            <option value="{{ cat_name }}" selected disabled>{{ cat_name }}</option>
+                            {% else %}
+                            <option value="{{ cat_name }}" disabled>{{ cat_name }}</option>
+                            {% endif %}
+                            <!--  -->
+                            {% endfor %}
+                        </select>
+
+                        <label class="mt-2">New Category</label> <br />
+                        <input type="text" class="form-control" name="new-category" />
+                    </div>
+
+                    <div class="form-group modal-footer mt-3">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="submit">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- END Add Category Modal -->
+
+<!-- View Licences Modal -->
+
+<div class="modal fade text-dark" id="viewLicencesModal" tabindex="-1" aria-labelledby="viewLicencesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewLicencesModalLabel">View Licences</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-success table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Sound Title</th>
+                            <th>Author</th>
+                            <th>License</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cat in sound_dict %}
+                        <!--  -->
+                        {% for data in sound_dict[cat] %}
+                        <tr>
+                            <td>{{ data[2] }}</td>
+                            <td>{{ data[4] }}</td>
+                            <td>{{ data[5] }}</td>
+                        </tr>
+                        {% endfor %}
+                        <!--  -->
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- END View Licences Modal -->
+
+{% endblock %}
