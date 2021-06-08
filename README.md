@@ -47,20 +47,22 @@ This project inspired by [blanket](https://github.com/rafaelmardojai/blanket/).
     ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
     ```
 
-4. Install all requirements by running `pip install -r requirements.txt`.
+4. Create virtual environment.
 
 5. Activate the virtual environment. It depends on your OS and shell emulator, please refer to [this page](https://flask.palletsprojects.com/en/2.0.x/cli/) for better information.
 
-6. Run the application by using this following commands:
+6. Install all requirements by running `pip install -r requirements.txt`.
+
+7. Run the application by using this following commands:
 
     ```
     set FLASK_APP run.py
     flask run
     ```
 
-7. It should be make a connection in `127.0.0.1:5000`. Open the URL on your browser.
+8. It should be make a connection in `127.0.0.1:5000`. Open the URL on your browser.
 
-8. Click the "Reset to Default" Navbar to setup the application sounds data.
+9. Click the "Reset to Default" Navbar to setup the application sounds data.
 
 ---
 
